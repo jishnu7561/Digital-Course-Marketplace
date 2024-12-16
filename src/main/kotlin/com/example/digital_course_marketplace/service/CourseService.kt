@@ -12,7 +12,7 @@ class CourseService(val courseRepository: CourseRepository) {
 
     fun createCourse(course: Course, loggedInUser: User): String{
         val existingCourse = courseRepository.findByTitleIgnoreCase(course.title)
-        if (existingCourse != null) {
+        if (existingCourse.isPresent) {
 
             throw AlreadyExistsException("A course with the title '${course.title}' already exists.")
         }
