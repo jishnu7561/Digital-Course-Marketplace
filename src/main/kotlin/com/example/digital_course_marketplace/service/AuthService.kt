@@ -33,10 +33,9 @@ class AuthService(
                 encodedPassword = passwordEncoder.encode(regDto.password),
                 role = role
         )
-
+        
         val existingUser = userRepository.findByEmail(regDto.email)
-        if (existingUser != null) {
-
+        if (existingUser.isPresent) {
             throw AlreadyExistsException("User with the email '${regDto.email}' already exists.")
         }
 
